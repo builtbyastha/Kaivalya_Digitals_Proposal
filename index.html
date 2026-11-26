@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Podcast Channel Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE work: a client proposal that is also a pricing tool, calm and exact
+   IDEA a broadcast rundown sheet: every segment, every role, every rupee on one running order
+   PICTURE the live quote: total, cost strip and cost-per-episode ladder moving with each choice
+   COLOUR Kaivalya navy #12263a field, white sheet, teal working colour, on-air coral for what is removed
+   TYPE Hind 700 display (carries Devanagari) + Inter text
+   LAYOUT laptop: title on navy, builder left 1.2fr, sticky quote right; phone: title, steps, quote, slim total bar */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0b1622);--ink:light-dark(#12263a,#e7eef5);--mute:light-dark(#5b6b7b,#9db0c2);--navy:#12263a;--teal:light-dark(#0a7f8a,#3fb7c1);--tealbg:light-dark(#e3f3f4,#0f2e35);--coral:#ff6f59;--line:light-dark(#dbe3ea,#22364a);--card:light-dark(#ffffff,#102131);--soft:light-dark(#f2f6f9,#0f1e2d)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Hind,Inter,sans-serif;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h1{font-size:clamp(32px,4.6vw,50px);line-height:1.05}
+h2{font-size:clamp(28px,3.4vw,38px);line-height:1.08;margin-bottom:10px}
+h3{font-size:20px;line-height:1.2}
+p{margin:0 0 12px;max-width:68ch}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+nav{position:sticky;top:0;z-index:20;background:var(--navy);border-bottom:1px solid #22405c}
+nav .wrap{display:flex;gap:4px;align-items:center;overflow-x:auto;padding:0 max(5vw,16px)}
+nav a{flex:none;color:#c9d8e5;text-decoration:none;font-size:14px;font-weight:500;padding:14px 12px;border-bottom:3px solid transparent}
+nav a:hover,nav a:focus-visible{color:#fff;border-bottom-color:var(--coral);outline:none}
+nav .brand{flex:none;white-space:nowrap;color:#fff;font:700 17px Hind,Inter,sans-serif;margin-right:auto}
+.top{background:var(--navy);color:#fff;padding-bottom:150px}
+.top p{color:#c9d8e5;font-size:17px}
+.onair{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:#ffd9d2;margin-bottom:14px}
+.onair i{width:10px;height:10px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 4px #ff6f5933}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:6px;color:#9fb6c9;font-size:14px}
+.facts b{color:#fff;font-weight:600}
+.builder{margin-top:-130px;padding-top:0}
+.grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 0 var(--line)}
+.steps{display:flex;border-bottom:1px solid var(--line);overflow-x:auto}
+.steps button{flex:1 0 auto;background:none;border:0;border-bottom:3px solid transparent;color:var(--mute);font:600 14px Inter;padding:16px 14px;min-height:48px;cursor:pointer}
+.steps button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--teal)}
+.steps button:focus-visible{outline:2px solid var(--teal);outline-offset:-2px}
+.step{padding:22px clamp(16px,2.4vw,28px) 8px;display:none}
+.step.on{display:block}
+.q{font-weight:600;margin:0 0 4px}
+.hint{color:var(--mute);font-size:14px;margin:0 0 14px}
+.seg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:22px}
+.seg label{position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0}
+.seg span{display:block;border:1.5px solid var(--line);border-radius:10px;padding:12px 10px;text-align:center;font-weight:600;min-height:64px}
+.seg small{display:block;font-weight:400;color:var(--mute);font-size:13px;margin-top:2px}
+.seg input:checked+span{border-color:var(--teal);background:var(--tealbg)}
+.seg input:focus-visible+span{outline:2px solid var(--teal);outline-offset:2px}
+.pre{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:24px}
+.pre button{text-align:left;background:var(--card);color:var(--ink);border:1.5px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;font:14px/1.4 Inter;min-height:44px}
+.pre button b{display:block;font:700 17px Hind,Inter,sans-serif}
+.pre button .pp{display:block;font:700 24px Hind,Inter,sans-serif;margin:4px 0 2px;color:var(--ink)}
+.pre button span{color:var(--mute)}
+.pre button .tag{color:#fff}
+.pre button[aria-pressed=true]{border-color:var(--teal);background:var(--tealbg)}
+.pre button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.tag{display:inline-block;font-size:12px;font-weight:600;color:#fff;background:var(--teal);border-radius:4px;padding:0 6px;margin-left:4px;vertical-align:2px}
+.custom{font-size:14px;color:var(--mute);margin:-14px 0 18px}
+.fee{background:var(--tealbg);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px}
+.fee .ds{grid-column:1/-1;font-size:14px;color:var(--mute)}
+.svc{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 14px;align-items:start;padding:14px 0;border-top:1px solid var(--line)}
+.svc .nm{font-weight:600}
+.svc .ds{grid-column:2/-1;color:var(--mute);font-size:14px}
+.svc .rg{grid-column:2/-1;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;font-size:13px;color:var(--mute)}
+.svc .hit{grid-column:2/-1;color:var(--coral);font-size:13.5px;display:none}
+.svc.off .hit{display:block}
+.svc.off .rg{opacity:.35;pointer-events:none}
+.svc.off .nm{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--coral)}
+.req{width:44px;font-size:11.5px;font-weight:700;color:var(--teal);padding-top:4px;text-align:center}
+.amt{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+input[type=range]{width:100%;accent-color:var(--teal);height:32px;margin:0}
+.sw{appearance:none;width:44px;height:26px;border-radius:13px;background:var(--line);position:relative;cursor:pointer;margin:0;transition:background .2s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s;box-shadow:0 1px 2px #0003}
+.sw:checked{background:var(--teal)}.sw:checked::after{left:21px}
+.sw:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.grp{font:700 17px Hind,Inter,sans-serif;margin:10px 0 2px}
+select{font:16px Inter;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;width:100%;min-height:48px;margin-bottom:16px}
+select:focus-visible{outline:2px solid var(--teal)}
+.nav2{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.btn{font:600 15px Inter;border-radius:10px;padding:12px 18px;min-height:46px;cursor:pointer;border:1.5px solid var(--teal);background:var(--teal);color:#fff}
+.btn.ghost{background:none;color:var(--teal)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.quote{position:sticky;top:64px;padding:22px clamp(16px,2.2vw,26px)}
+.qlab{color:var(--mute);font-size:14px}
+.total{font:700 clamp(44px,5.4vw,64px)/1 Hind,Inter,sans-serif;margin:4px 0 6px;font-variant-numeric:tabular-nums}
+.sub3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0 16px;padding:12px 0;border-block:1px solid var(--line)}
+.sub3 b{display:block;font-size:18px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sub3 span{font-size:13px;color:var(--mute)}
+.strip{display:flex;height:16px;border-radius:8px;overflow:hidden;margin:6px 0 12px;background:var(--soft)}
+.strip i{display:block;height:100%;transition:width .35s}
+.rows{display:grid;gap:6px;font-size:14px}
+.rows div{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:10px;align-items:center}
+.rows i{width:12px;height:12px;border-radius:3px}
+.ladder{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.lad{display:grid;grid-template-columns:7.5em minmax(0,1fr) 5.4em;gap:10px;align-items:center;font-size:14px;margin-top:7px}
+.lad .bar{height:14px;border-radius:7px;background:var(--soft);overflow:hidden}
+.lad .bar i{display:block;height:100%;background:var(--line);transition:width .35s}
+.lad.cur .bar i{background:var(--teal)}
+.lad.cur{font-weight:600}
+.lad .amt{font-weight:500}
+.note{font-size:13.5px;color:var(--mute)}
+.mbar{display:none}
+.alt{background:var(--soft)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:clamp(20px,4vw,56px);align-items:start}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}
+.kpis div{border-left:3px solid var(--teal);padding-left:12px}
+.kpis b{display:block;font:700 clamp(24px,3vw,32px)/1.1 Hind,Inter,sans-serif;white-space:nowrap}
+.kpis span{font-size:13.5px;color:var(--mute)}
+.fig{position:relative;min-height:340px}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+svg text{font-family:Inter;paint-order:stroke;stroke:var(--card);stroke-width:4px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px;color:var(--mute);margin-top:10px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th{text-align:left;font-weight:600;font-size:13.5px;color:var(--mute);padding:8px 10px;border-bottom:1.5px solid var(--ink)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr.tot td{font-weight:700;border-top:1.5px solid var(--ink)}
+.pick{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 12px}
+.pick button{flex:none;scroll-snap-align:start;font:600 14px Inter;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:10px 16px;min-height:44px;cursor:pointer}
+.pick button[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.pick button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.pod{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:22px;margin-top:8px}
+.pcard{background:var(--navy);color:#fff;border-radius:14px;padding:24px clamp(18px,2.4vw,28px)}
+.pcard .rk{color:#9fb6c9;font-size:14px}
+.pcard h3{font-size:clamp(26px,3vw,34px);margin:4px 0 2px;color:#fff}
+.pcard .sh{color:#9fdfe4;font-weight:500}
+.pcard .big{font:700 clamp(34px,4.4vw,46px)/1.05 Hind,Inter,sans-serif;margin:16px 0 2px}
+.pcard .bl{color:#9fb6c9;font-size:14px;margin-bottom:14px}
+.split{display:grid;gap:8px;margin:0 0 16px}
+.split div{display:grid;grid-template-columns:10.5em minmax(0,1fr);gap:10px;font-size:14.5px;border-top:1px solid #2c4a66;padding-top:8px}
+.split span{color:#9fb6c9}
+.split small{display:block;color:#9fb6c9;font-size:12.5px}
+.pstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;border-top:1px solid #2c4a66;padding-top:14px}
+.pstats b{display:block;font-size:17px;line-height:1.25;margin-bottom:2px}
+.pstats span{font-size:13px;color:#9fb6c9}
+.rng{display:grid;grid-template-columns:11.5em minmax(0,1fr) 7.4em;gap:10px;align-items:center;font-size:14px;padding:5px 0;cursor:pointer;border-radius:6px}
+.rng:hover{background:var(--soft)}
+.rng.cur{font-weight:600}
+.rng .tr{position:relative;height:14px}
+.rng .tr::before{content:"";position:absolute;left:0;right:0;top:6px;height:2px;background:var(--line)}
+.rng .tr i{position:absolute;top:2px;height:10px;border-radius:5px;background:var(--teal);opacity:.55}
+.rng.cur .tr i{opacity:1;background:var(--navy)}
+:root[data-theme=dark] .rng.cur .tr i{background:#fff}
+.rng .amt{font-weight:500;font-size:13.5px}
+.ax{display:flex;justify-content:space-between;font-size:12.5px;color:var(--mute)}
+.calc{margin-top:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:center}
+.cv{font:700 clamp(32px,4vw,44px)/1.05 Hind,Inter,sans-serif}
+.five{display:grid;grid-template-columns:repeat(auto-fit,minmax(11em,1fr));gap:12px;margin-top:16px}
+.five div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.five b{display:block;font:700 18px Hind,Inter,sans-serif}
+.five em{display:block;font-style:normal;color:var(--teal);font-weight:600;font-size:14.5px;margin:2px 0 6px}
+.five span{font-size:14px;color:var(--mute)}
+.tl{display:flex;height:58px;border-radius:10px;overflow:hidden;margin:18px 0 10px}
+.tl div{display:flex;align-items:flex-end;padding:6px 8px;color:#fff;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden}
+.tl div.cut{background:repeating-linear-gradient(135deg,var(--soft) 0 6px,var(--line) 6px 12px)!important;color:var(--mute)}
+.segs{display:grid;grid-template-columns:repeat(auto-fit,minmax(13em,1fr));gap:12px 18px;font-size:14.5px}
+.route{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;position:relative;margin-top:20px}
+.route::before{content:"";position:absolute;left:10px;right:10px;top:10px;height:3px;background:var(--teal);opacity:.35}
+.route div{position:relative;padding-top:30px;font-size:14.5px}
+.route div::before{content:"";position:absolute;top:2px;left:0;width:19px;height:19px;border-radius:50%;background:var(--card);border:4px solid var(--teal)}
+.route b{display:block;font:700 17px Hind,Inter,sans-serif;margin-bottom:4px}
+.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(18em,1fr));gap:18px 34px}
+.terms h3{margin-bottom:6px}
+.terms ul{margin:0;padding-left:18px}.terms li{margin-bottom:6px}
+a{color:var(--teal)}
+footer{background:var(--navy);color:#9fb6c9;font-size:14px}
+footer b{color:#fff;font:700 18px Hind,Inter,sans-serif}
+@media(max-width:899px){.grid,.two,.pod,.calc{grid-template-columns:minmax(0,1fr)}.quote{position:static}.mbar{display:flex;position:sticky;bottom:0;z-index:15;justify-content:space-between;align-items:center;gap:10px;background:var(--navy);color:#fff;padding:10px max(5vw,16px);font-size:14px}.mbar b{font:700 22px Hind,Inter,sans-serif}}
+@media(max-width:600px){.seg{grid-template-columns:repeat(2,minmax(0,1fr))}.pre{grid-template-columns:minmax(0,1fr)}.route{grid-template-columns:minmax(0,1fr)}.route::before{left:8px;right:auto;top:10px;bottom:10px;width:3px;height:auto}.route div{padding:0 0 0 32px}.sub3 b{font-size:16px}table{font-size:13px}th,td{padding:7px 5px}.lad{grid-template-columns:6.4em minmax(0,1fr) 5em}.rng{grid-template-columns:7.4em minmax(0,1fr) 6.4em}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.split div{grid-template-columns:8.5em minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><span class="brand">Kaivalya Digitals</span><a href="#build">Build your package</a><a href="#outlook">Earnings outlook</a><a href="#benchmarks">What top podcasters earn</a><a href="#show">The show</a><a href="#how">How we work</a><a href="#terms">Terms</a></div></nav>
+
+<header class="band top"><div class="wrap">
+  <div class="onair"><i></i>Proposal for Mr. Aditya Dhanda · 26 November 2026</div>
+  <h1>A Hindi knowledge show,<br>priced line by line</h1>
+  <p style="margin-top:14px">Documentary storytelling, expert conversations and a studio audience, produced by Kaivalya Digitals in your existing studio. Start from a pilot option, adjust every role and service, and see exactly what each rupee pays for.</p>
+  <div class="facts"><span><b>Your studio</b> and equipment, no fit-out cost</span><span><b>3-month</b> minimum commitment</span><span><b>Day-90</b> go, adjust or stop decision</span></div>
+</div></header>
+
+<section class="band builder" id="build"><div class="wrap grid">
+  <div class="panel">
+    <div class="steps" role="tablist" id="tabs"></div>
+    <div class="step" id="s0">
+      <p class="q">Start from a pilot option</p>
+      <p class="hint">Each is a 90-day pilot. The options differ in scope, not in rates.</p>
+      <div class="pre" id="pre"></div>
+      <p class="custom" id="custom"></p>
+      <p class="q">How many full episodes a month?</p>
+      <p class="hint">Each is 50–60 minutes. The fee and crew are monthly, so more episodes spread their cost thinner.</p>
+      <div class="seg" id="cad"></div>
+      <p class="q">How long do you want to commit for?</p>
+      <p class="hint">The minimum is a 90-day pilot. Funds are released one quarter at a time after a review.</p>
+      <div class="seg" id="dur"></div>
+    </div>
+    <div class="step" id="s1">
+      <div class="fee"><span class="nm" style="font-weight:600">Kaivalya programme fee</span><span class="amt">₹2,00,000/mo</span><span class="ds">Fixed. Programme direction and final accountability; hosting and anchoring (no separate host fee); editorial strategy and topic planning; team and vendor management; sponsor sales pack; monthly performance report.</span></div>
+      <p class="hint">Crew is billed at actual cost. Pick the level for each role within its range; if actual costs come in lower, you pay the lower amount.</p>
+      <div class="grp">Required crew</div><div id="core"></div>
+      <div class="grp" style="margin-top:14px">Optional crew</div><div id="opt"></div>
+    </div>
+    <div class="step" id="s2">
+      <p class="q">Episode production</p>
+      <p class="hint">Costs per episode. Guest travel and licences are required; the format segments are yours to keep or drop.</p>
+      <div id="eps"></div>
+      <p class="q" style="margin-top:18px">Paid distribution per month</p>
+      <p class="hint">Promotes clips and episodes to new viewers. It speeds growth but does not count towards YouTube monetisation thresholds.</p>
+      <select id="dist"></select>
+      <p class="q">Launch identity and format</p>
+      <select id="launch"></select>
+      <p class="q">Growth add-ons</p>
+      <div id="adds"></div>
+    </div>
+    <div class="step" id="s3">
+      <p class="q">Your package</p>
+      <p class="hint" id="sumline"></p>
+      <div class="scroll"><table id="review"></table></div>
+      <p class="q" style="margin-top:20px">Payment schedule</p>
+      <div class="scroll"><table id="pay"></table></div>
+      <div class="nav2" style="margin-top:16px"><button class="btn" id="copy">Copy package summary</button><button class="btn ghost" id="reset">Reset to Full pilot</button></div>
+      <p class="note" id="copied" style="margin-top:8px" aria-live="polite"></p>
+    </div>
+    <div class="nav2" style="padding:14px clamp(16px,2.4vw,28px) 22px"><button class="btn ghost" id="back">Back</button><button class="btn" id="next">Next</button></div>
+  </div>
+
+  <aside class="panel quote" aria-live="polite">
+    <div class="qlab" id="qlab"></div>
+    <div class="total" id="qtot"></div>
+    <div class="note" id="qdelta"></div>
+    <div class="sub3"><div><b id="qmo"></b><span>average per month</span></div><div><b id="qep"></b><span>per episode, all-in</span></div><div><b id="qn"></b><span>full episodes</span></div></div>
+    <div class="qlab">Where the money goes</div>
+    <div class="strip" id="strip"></div>
+    <div class="rows" id="rows"></div>
+    <div class="ladder"><div class="qlab">Cost per episode at each cadence</div><div id="ladder"></div></div>
+    <p class="note" style="margin:12px 0 0">All amounts exclude GST.</p>
+  </aside>
+</div></section>
+<div class="mbar"><span id="mlab"></span><b id="mtot"></b></div>
+
+<section class="band alt" id="outlook"><div class="wrap">
+  <div class="two">
+    <div>
+      <h2 id="otitle"></h2>
+      <p>A knowledge show earns most of its value before it earns ad money: founder voice and authority, brand visibility for your businesses from Episode 1, a network of experts and leaders, and an owned media asset that grows. Revenue follows as the audience builds.</p>
+      <div class="kpis"><div><b id="k1"></b><span>Year 1 revenue</span></div><div><b id="k5"></b><span>Year 5 revenue</span></div><div><b id="kc"></b><span>five-year revenue</span></div></div>
+      <p class="note">The outlook runs your chosen package for five years at your cadence. Costs rise about 10% a year; sponsor prices step from ₹1 lakh in Year 1 to ₹6 lakh in Year 5. Services you remove reduce the modelled revenue. Illustrative, pre-tax, not booked income.</p>
+    </div>
+    <div class="panel" style="padding:18px">
+      <div class="fig"><svg id="chart" role="img" aria-label="Revenue and programme cost by year"></svg></div>
+      <div class="legend"><span><i style="background:var(--navy)"></i>Sponsorship</span><span><i style="background:var(--teal)"></i>YouTube</span><span><i style="background:#8fd0d4"></i>Memberships, licensing, affiliates</span><span><i style="background:#d98b2b;height:3px;vertical-align:3px"></i>Programme cost</span></div>
+    </div>
+  </div>
+  <div class="scroll" style="margin-top:26px"><table id="otab"></table></div>
+</div></section>
+
+<section class="band" id="benchmarks"><div class="wrap">
+  <h2>What India’s top Hindi podcasters earn per episode</h2>
+  <p>Ten leading Hindi and Hinglish shows earn from several streams on every full episode: YouTube AdSense, mid-roll sponsorships, paid guest slots and secondary funnels. Pick a show to see its breakdown.</p>
+  <div class="pick" id="pick" role="group" aria-label="Choose a podcaster"></div>
+  <div class="pod">
+    <div class="pcard" id="pcard"></div>
+    <div class="panel" style="padding:18px 18px 12px">
+      <div class="qlab" style="margin-bottom:6px">Estimated total revenue per full episode, ₹ lakh</div>
+      <div id="ranges"></div>
+      <div class="rng" style="cursor:default"><span></span><span class="ax"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span></span><span></span></div>
+      <p class="note" style="margin:6px 0 0">“+” marks an open upper end; the bar stops at the stated figure.</p>
+    </div>
+  </div>
+  <h3 style="margin-top:34px">Five more revenue streams this channel can tap at 5 lakh subscribers</h3>
+  <p class="note" style="margin-top:6px">The plan targets 2–4 lakh YouTube subscribers by the end of Year 2 and 8–15 lakh by Year 5, so this milestone sits inside the growth path. These streams are additional to the outlook above.</p>
+  <div class="five">
+    <div><b>Mid-roll sponsor integrations</b><em>₹50,000 – ₹1.5 lakh per episode</em><span>Keep high-profile guests free and sell a 60-second host-read segment at the 15-minute mark to fintech, edtech, wellness or D2C apps.</span></div>
+    <div><b>YouTube long-form AdSense</b><em>₹15,000 – ₹50,000 per episode</em><span>45–90 minute videos support multiple mid-rolls. At 50K–100K views an episode, Hindi business/finance earns ~₹100–₹150 RPM; lifestyle ~₹50–₹80.</span></div>
+    <div><b>Audio platform distribution</b><em>₹20,000 – ₹1 lakh per month</em><span>The RSS feed on Spotify, Apple Podcasts, Amazon Music and JioSaavn unlocks programmatic audio ads and licensing past 100K+ monthly streams.</span></div>
+    <div><b>Affiliate and lead-gen funnels</b><em>Variable</em><span>Tracked links in pinned comments to books, tools, courses or financial products earn recurring income on evergreen videos.</span></div>
+    <div><b>Paid community, courses or live events</b><em>₹1,999 – ₹9,999 per ticket</em><span>Workshops, memberships or live audience tickets often outperform AdSense in profit margin.</span></div>
+  </div>
+  <div class="calc panel" style="padding:22px clamp(16px,2.4vw,28px)">
+    <div>
+      <h3>What one episode’s audience is worth to a brand</h3>
+      <p class="note" style="margin-top:6px">Commercial podcast guest rates in India generally benchmark at ₹1.50–₹4.00 per expected view, across the main episode plus bundled Reels and Shorts.</p>
+      <label for="views" class="qlab">Expected views per episode: <b id="vl" style="color:var(--ink)"></b></label>
+      <input type="range" id="views" min="50000" max="1500000" step="50000" value="300000">
+    </div>
+    <div><div class="qlab">Benchmark value of one paid feature</div><div class="cv" id="cv"></div><p class="note" id="cn" style="margin-top:8px"></p></div>
+  </div>
+  <p class="note" style="margin-top:12px">Source: Kaivalya Digitals research, 26 November 2026. Industry estimates per full-length episode based on standard Indian YouTube RPMs (₹60–₹180 per 1,000 views by niche and watch time), typical sponsor rates and secondary funnels. Subscriber counts are approximate; average views blend the last ~20 uploads including Shorts.</p>
+</div></section>
+
+<section class="band alt" id="show"><div class="wrap">
+  <h2>The show: a 55-minute running order</h2>
+  <p>Practical learning for citizens, professionals and policymakers. 70–80% Hindi, with English where it helps and always explained. For Hindi-understanding Indian middle-class viewers and NRIs, with a core focus on ages 18–45.</p>
+  <div class="tl" id="tl"></div>
+  <div class="segs" id="segs"></div>
+  <div class="scroll" style="margin-top:28px"><table>
+    <thead><tr><th>Planning target (not a guarantee)</th><th class="n">Year 1</th><th class="n">Year 2</th><th class="n">Year 5</th></tr></thead>
+    <tbody>
+      <tr><td>YouTube subscribers at year end</td><td class="n">75,000–1.5 lakh</td><td class="n">2–4 lakh</td><td class="n">8–15 lakh</td></tr>
+      <tr><td>Annual cross-platform video views</td><td class="n">2–4 crore</td><td class="n">4–8 crore</td><td class="n">12–25 crore</td></tr>
+      <tr><td>Annual YouTube long-form views</td><td class="n">80 lakh–1.2 crore</td><td class="n">1.2–2 crore</td><td class="n">4.5–7 crore</td></tr>
+      <tr><td>Annual YouTube unique viewers</td><td class="n">10–25 lakh</td><td class="n">25–50 lakh</td><td class="n">1–2 crore</td></tr>
+    </tbody></table></div>
+  <p class="note" style="margin-top:8px">Targets for the Full package (3 episodes a month). They assume consistent publishing, strong packaging, guest participation and funded distribution, and are recalibrated after the first 9 episodes.</p>
+</div></section>
+
+<section class="band" id="how"><div class="wrap">
+  <h2>How every episode is made</h2>
+  <p>One programme director is accountable for every stage.</p>
+  <div class="route">
+    <div><b>Research and topic lock</b>Audience question, source quality and relevance checked; topic approved by you.</div>
+    <div><b>Guest and story</b>Experts and backups shortlisted; research brief, documentary plan and audience questions.</div>
+    <div><b>Field and studio</b>Documentary and street shoots; guest travel and audience logistics; recording.</div>
+    <div><b>Edit and publish</b>Full edit; facts, sound and subtitles checked; your review; title, thumbnail, description.</div>
+    <div><b>Repurpose and improve</b>Clips with platform captions; distribution with guests and partners; results reported.</div>
+  </div>
+  <h3 style="margin-top:34px">How the pilot reduces your risk</h3>
+  <div class="five">
+    <div><b>Quarterly commitment</b><span>You approve funding one quarter at a time. Nothing beyond 90 days is committed up front.</span></div>
+    <div><b>Contingency held back</b><span>Released only against a named need that you approve.</span></div>
+    <div><b>Crew at actuals</b><span>Crew and episode costs are billed at actual cost. Any saving stays with you.</span></div>
+    <div><b>Day-90 evidence</b><span>Continuing rests on real retention, returning viewers and sponsor conversations, not forecasts.</span></div>
+  </div>
+</div></section>
+
+<section class="band alt" id="terms"><div class="wrap">
+  <h2>Commitment and terms</h2>
+  <div class="terms">
+    <div><h3>Payment</h3><ul><li>Pilot: 35% on signing (before production starts), 35% at the start of Month 2, 30% at the start of Month 3.</li><li>After the pilot: invoiced monthly in advance, due within 7 days.</li><li>Episode expenses are funded before each shoot and reconciled at actual cost monthly.</li><li>The programme fee for a month is earned once that month begins. GST applies on all invoices.</li></ul></div>
+    <div><h3>Responsibilities</h3><p><b>Kaivalya Digitals:</b> programme management and hosting, research and scripts, guest coordination, production supervision, post-production, publishing, distribution and monthly reporting; guest, audience and source permissions cleared before publication.</p><p><b>You:</b> the working studio and equipment, one approval contact, channel ownership and account access, approved funds released on schedule and feedback within 3 working days.</p></div>
+    <div><h3>Scope and ownership</h3><ul><li>Two review rounds per full episode and one per clip set. Extra rounds or scope changes are quoted in writing first.</li><li>The channel, accounts and published content belong to you once the related invoices are paid.</li><li>Paid interviews are always disclosed as commercial content. Business-idea segments do not promise investment or returns.</li><li>Valid for 30 days; final terms are confirmed in the signed agreement.</li></ul></div>
+  </div>
+  <p class="note" style="margin-top:14px">Platform rules: <a href="https://support.google.com/youtube/answer/72851">YouTube Partner Program eligibility</a> · <a href="https://help.x.com/en/using-x/original-content-rewards">X Original Content Rewards</a></p>
+</div></section>
+
+<footer class="band"><div class="wrap" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px"><b>Kaivalya Digitals</b><span>Podcast channel proposal for Mr. Aditya Dhanda · 26 November 2026 · Confidential</span></div></footer>
+
+<script>
+{
+const FEE=200000,OPS=40000,FUND=300000;
+const ROLES=[
+ {id:'cd',n:'Creative director and executive producer',d:'Format, scheduling, shoot supervision and quality',lo:50000,hi:70000,v:60000,req:1},
+ {id:'c1',n:'Camera operator',d:'Studio and field capture',lo:25000,hi:35000,v:30000,req:1},
+ {id:'rw',n:'Researcher and writer',d:'Source pack, script and documentary narrative',lo:30000,hi:50000,v:40000,req:1},
+ {id:'ed',n:'Video editor (also sound finishing)',d:'Full episodes, clips, sound and colour finish',lo:30000,hi:50000,v:40000,req:1},
+ {id:'c2',n:'Second camera operator',d:'Multi-angle studio and field capture',h:'Single-angle recording, fewer cutaways',lo:25000,hi:35000,v:30000},
+ {id:'gm',n:'Graphic and motion artist',d:'Thumbnails, explainers, posters and carousels',h:'Clips drop to 3–4 per episode; basic thumbnails',lo:25000,hi:40000,v:35000},
+ {id:'om',n:'Guest and commercial outreach manager',d:'Guest pipeline, sponsor leads and coordination',h:'Programme director handles outreach; outlook assumes 40% less sponsorship',lo:25000,hi:35000,v:30000},
+ {id:'sm',n:'Social distribution manager',d:'Publishing, community and performance reporting',h:'Graphics artist or your team posts; slower organic growth',lo:20000,hi:40000,v:35000}];
+const EPS=[
+ {id:'gt',n:'Guest travel and stay',d:'Economical domestic travel and a modest stay',e:20000,req:1},
+ {id:'li',n:'Licences and incidentals',d:'Episode-specific licences',e:2000,req:1},
+ {id:'doc',n:'Documentary opener and street opinions',d:'Local shoot logistics for the first 8 minutes',h:'Episode opens straight in the studio',e:10000},
+ {id:'aud',n:'Studio audience',d:'Audience transport and refreshments',h:'No audience question segment',e:8000}];
+const DIST=[{v:0,l:'None, organic only',f:.75},{v:50000,l:'₹50,000 a month',f:.9},{v:100000,l:'₹1 lakh a month',f:1},{v:200000,l:'₹2 lakh a month',f:1.12}];
+const LAUNCH=[{v:300000,l:'Standard: ₹3,00,000 one-time'},{v:200000,l:'Essential: ₹2,00,000 one-time'}];
+const ADDS=[{id:'fund',n:'Marquee guest or outstation documentary fund',d:'₹3,00,000 one-time, released per approved guest or shoot',amt:'₹3,00,000'},{id:'sales',n:'Sponsor sales by Kaivalya',d:'We sell episode sponsorships for 15% commission on cash collected; no upfront cost',amt:'15%'}];
+const BASE={sp:[18,48,108,144,252],yt:[4.6,10,20,26,45.1],mem:[0,2,12,16,23]};
+const lv=()=>Object.fromEntries(ROLES.map(r=>[r.id,r.v]));
+const PRESETS={
+ lean:{nm:'Lean pilot',ds:'2 episodes a month, lean crew, ₹50,000 distribution',c:2,n:3,off:['c2','om','sm'],lv:{...lv(),c1:35000,gm:25000},dist:50000,launch:200000,adds:[]},
+ full:{nm:'Full pilot',ds:'3 episodes a month, full crew, ₹1 lakh distribution',c:3,n:3,off:[],lv:lv(),dist:100000,launch:300000,adds:[]},
+ growth:{nm:'Growth pilot',ds:'Full, plus ₹2 lakh distribution, guest fund and sponsor sales',c:3,n:3,off:[],lv:lv(),dist:200000,launch:300000,adds:['fund','sales']}};
+const clone=o=>JSON.parse(JSON.stringify(o));
+let st;try{st=JSON.parse(localStorage.getItem('kd-pkg-v2'))}catch(e){}
+if(!st||!st.lv)st=clone(PRESETS.full);
+const $=id=>document.getElementById(id);
+const on=id=>!st.off.includes(id);
+const L=x=>'₹'+(x/1e5).toFixed(1)+' L';
+const L2=x=>'₹'+(x/1e5).toFixed(2)+' L';
+const R=x=>'₹'+Math.round(x).toLocaleString('en-IN');
+const COLS={fee:'#12263a',crew:'#3d6b94',ep:'#0a7f8a',dist:'#8fd0d4',ops:'#9aa9b8',launch:'#d98b2b',fund:'#e8b36b',cont:'#c9d3dc'};
+
+function calc(c,n,s){
+  const o=id=>!s.off.includes(id);
+  const crew=ROLES.reduce((a,r)=>a+(r.req||o(r.id)?s.lv[r.id]:0),0);
+  const ep=EPS.reduce((a,e)=>a+(e.req||o(e.id)?e.e:0),0);
+  const run=FEE+crew+OPS+s.dist+c*ep,base=run-s.dist,q1=Math.min(n,3),rest=n-q1;
+  const cont=Math.max(100000,base*q1*1.2/19.8)+base*rest*3.1/19.8;
+  const fund=s.adds.includes('fund')?FUND:0;
+  const parts={fee:FEE*n,crew:crew*n,ep:c*ep*n,dist:s.dist*n,ops:OPS*n,launch:s.launch,fund,cont};
+  return{parts,total:Object.values(parts).reduce((a,b)=>a+b,0),eps:c*n,crew,ep};
+}
+function outlook(){
+  const k=st.c/3,df=DIST.find(d=>d.v==st.dist).f;
+  const spF=k*(on('om')?1:.6),ytF=k*df*(on('gm')?1:.85)*(on('sm')?1:.9)*(on('doc')?1:.95)*(on('aud')?1:.95);
+  const y1=calc(st.c,12,{...st,adds:[]}).total/1e5;
+  return [0,1,2,3,4].map(i=>({sp:BASE.sp[i]*spF,yt:BASE.yt[i]*ytF,mem:BASE.mem[i]*k,cost:y1*1.1**i}));
+}
+const same=(a,b)=>a.c==b.c&&a.n==b.n&&a.dist==b.dist&&a.launch==b.launch&&[...a.off].sort()+''==[...b.off].sort()+''&&[...a.adds].sort()+''==[...b.adds].sort()+''&&ROLES.every(r=>a.lv[r.id]==b.lv[r.id]);
+const STEPS=['Package','Crew','Production and reach','Review'];
+let cur=0;
+$('tabs').innerHTML=STEPS.map((s,i)=>`<button role="tab" id="t${i}" aria-selected="false">${s}</button>`).join('');
+$('pre').innerHTML=Object.entries(PRESETS).map(([k,p])=>`<button id="p-${k}" aria-pressed="false"><b>${p.nm}${k=='full'?'<span class="tag">Recommended</span>':''}</b><span class="pp">${L(calc(p.c,p.n,p).total)}</span><span>${p.ds}</span></button>`).join('');
+$('cad').innerHTML=[1,2,3,4].map(c=>`<label><input type="radio" name="cad" value="${c}"><span>${c}<small>${c==1?'episode':'episodes'}</small></span></label>`).join('');
+$('dur').innerHTML=[3,6,9,12].map(n=>`<label><input type="radio" name="dur" value="${n}"><span>${n} months<small>${n==3?'pilot':n==12?'full year':n/3+' quarters'}</small></span></label>`).join('');
+const role=r=>`<div class="svc" data-id="${r.id}">${r.req?'<span class="req">Req.</span>':`<input type="checkbox" class="sw" id="sw-${r.id}" aria-label="${r.n}">`}<span class="nm">${r.n}</span><span class="amt" id="a-${r.id}"></span><span class="ds">${r.d}</span><span class="rg"><span>${R(r.lo)}</span><input type="range" id="r-${r.id}" min="${r.lo}" max="${r.hi}" step="5000" aria-label="${r.n} monthly rate"><span>${R(r.hi)}</span></span>${r.h?`<span class="hit">Without it: ${r.h}</span>`:''}</div>`;
+const item=(x,amt)=>`<div class="svc" data-id="${x.id}">${x.req?'<span class="req">Req.</span>':`<input type="checkbox" class="sw" id="sw-${x.id}" aria-label="${x.n}">`}<span class="nm">${x.n}</span><span class="amt">${amt}</span><span class="ds">${x.d}</span>${x.h?`<span class="hit">Without it: ${x.h}</span>`:''}</div>`;
+$('core').innerHTML=ROLES.filter(r=>r.req).map(role).join('');
+$('opt').innerHTML=ROLES.filter(r=>!r.req).map(role).join('');
+$('eps').innerHTML=EPS.map(e=>item(e,R(e.e)+'/ep')).join('');
+$('adds').innerHTML=ADDS.map(a=>item(a,a.amt)).join('');
+$('dist').innerHTML=DIST.map(d=>`<option value="${d.v}">${d.l}</option>`).join('');
+$('launch').innerHTML=LAUNCH.map(d=>`<option value="${d.v}">${d.l}</option>`).join('');
+
+function go(i){cur=Math.max(0,Math.min(3,i));STEPS.forEach((s,j)=>{$('s'+j).classList.toggle('on',j==cur);$('t'+j).setAttribute('aria-selected',j==cur)});$('back').style.visibility=cur?'visible':'hidden';$('next').style.visibility=cur<3?'visible':'hidden';$('next').textContent=cur==2?'Review package':'Next'}
+STEPS.forEach((s,i)=>$('t'+i).addEventListener('click',()=>go(i)));
+$('back').addEventListener('click',()=>go(cur-1));$('next').addEventListener('click',()=>go(cur+1));
+
+function render(){
+  try{localStorage.setItem('kd-pkg-v2',JSON.stringify(st))}catch(e){}
+  const pk=Object.keys(PRESETS).find(k=>same(st,PRESETS[k]));
+  Object.keys(PRESETS).forEach(k=>$('p-'+k).setAttribute('aria-pressed',k==pk));
+  $('custom').textContent=pk?'':'Custom package: built from your own choices.';
+  document.querySelectorAll('input[name=cad]').forEach(r=>r.checked=+r.value==st.c);
+  document.querySelectorAll('input[name=dur]').forEach(r=>r.checked=+r.value==st.n);
+  $('dist').value=st.dist;$('launch').value=st.launch;
+  ROLES.forEach(r=>{$('r-'+r.id).value=st.lv[r.id];$('a-'+r.id).textContent=R(st.lv[r.id])+'/mo'});
+  [...ROLES,...EPS].forEach(x=>{const sw=$('sw-'+x.id);if(sw)sw.checked=on(x.id);document.querySelector(`.svc[data-id=${x.id}]`).classList.toggle('off',!x.req&&!on(x.id))});
+  ADDS.forEach(a=>{$('sw-'+a.id).checked=st.adds.includes(a.id);document.querySelector(`.svc[data-id=${a.id}]`).classList.toggle('off',!st.adds.includes(a.id))});
+  const q=calc(st.c,st.n,st),rec=calc(3,st.n,{...PRESETS.full,n:st.n});
+  $('qlab').textContent=`${pk?PRESETS[pk].nm:'Custom package'}: ${st.c} ${st.c==1?'episode':'episodes'} a month for ${st.n} months`;
+  $('qtot').textContent=L(q.total);
+  const d=q.total-rec.total;
+  $('qdelta').textContent=Math.abs(d)<500?`Same as the Full package for ${st.n} months`:`${L(Math.abs(d))} ${d<0?'below':'above'} the Full package for ${st.n} months (${L(rec.total)})`;
+  $('qmo').textContent=L(q.total/st.n);$('qep').textContent=L2(q.total/q.eps);$('qn').textContent=q.eps;
+  $('mlab').textContent=`${st.c}/month · ${st.n} months`;$('mtot').textContent=L(q.total);
+  const P=[['fee','Kaivalya programme fee'],['crew','Crew at actual cost'],['ep','Episode production'],['dist','Paid distribution'],['ops','Operations and tools'],['launch','Launch identity (one-time)'],['fund','Marquee guest fund'],['cont','Contingency, released only against need']];
+  $('strip').innerHTML=P.map(([k])=>`<i style="width:${q.parts[k]/q.total*100}%;background:${COLS[k]}"></i>`).join('');
+  $('rows').innerHTML=P.filter(([k])=>q.parts[k]>0).map(([k,n])=>`<div><i style="background:${COLS[k]}"></i><span>${n}</span><span class="amt">${L(q.parts[k])}</span></div>`).join('');
+  const lad=[1,2,3,4].map(c=>{const x=calc(c,st.n,st);return{c,v:x.total/x.eps}}),mx=Math.max(...lad.map(x=>x.v));
+  $('ladder').innerHTML=lad.map(x=>`<div class="lad${x.c==st.c?' cur':''}"><span>${x.c} a month</span><span class="bar"><i style="width:${x.v/mx*100}%"></i></span><span class="amt">${L2(x.v)}</span></div>`).join('')+`<p class="note" style="margin:8px 0 0">The fee and crew are monthly, so fewer episodes cost more each.</p>`;
+  const rv=[['Kaivalya programme fee',`${R(FEE)} × ${st.n} months (fixed)`,FEE*st.n],...ROLES.filter(r=>r.req||on(r.id)).map(r=>[r.n,`${R(st.lv[r.id])} × ${st.n} months`,st.lv[r.id]*st.n]),...EPS.filter(e=>e.req||on(e.id)).map(e=>[e.n,`${R(e.e)} × ${q.eps} episodes`,e.e*q.eps]),['Paid distribution',`${R(st.dist)} × ${st.n} months`,st.dist*st.n],['Operations and tools',`${R(OPS)} × ${st.n} months`,OPS*st.n],['Launch identity and format','One-time',st.launch],['Marquee guest fund','One-time',q.parts.fund],['Contingency','Held back; released only against need',q.parts.cont]].filter(r=>r[2]>0);
+  $('review').innerHTML=`<thead><tr><th>Item</th><th>Basis</th><th class="n">Amount</th></tr></thead><tbody>${rv.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td class="n">${R(r[2])}</td></tr>`).join('')}<tr class="tot"><td>Total</td><td>${q.eps} full episodes, ${st.n} months, excl. GST</td><td class="n">${R(q.total)}</td></tr></tbody>`;
+  const pilot=calc(st.c,3,st).total,later=(q.total-pilot)/Math.max(1,st.n-3);
+  $('pay').innerHTML=`<thead><tr><th>When</th><th class="n">Amount</th></tr></thead><tbody><tr><td>On signing, before production starts (35% of pilot)</td><td class="n">${R(pilot*.35)}</td></tr><tr><td>Start of Month 2 (35% of pilot)</td><td class="n">${R(pilot*.35)}</td></tr><tr><td>Start of Month 3 (30% of pilot)</td><td class="n">${R(pilot*.3)}</td></tr>${st.n>3?`<tr><td>Months 4–${st.n}, monthly in advance (average)</td><td class="n">${R(later)}</td></tr>`:''}</tbody>`;
+  const removed=[...ROLES,...EPS].filter(x=>!x.req&&!on(x.id)).map(x=>x.n);
+  const sales=st.adds.includes('sales');
+  $('sumline').textContent=`${st.c} ${st.c==1?'episode':'episodes'} a month for ${st.n} months; ${DIST.find(x=>x.v==st.dist).l.toLowerCase()} paid distribution. ${removed.length?'Removed: '+removed.join(', ')+'.':'All crew and format segments included.'}${sales?' Sponsor sales by Kaivalya at 15% commission on cash collected.':''}`;
+  window._sum=`Podcast channel package, Kaivalya Digitals (26 Nov 2026)\n${pk?PRESETS[pk].nm+': ':''}${st.c} episodes/month × ${st.n} months = ${q.eps} episodes\nTotal: ${R(q.total)} (${L(q.total)}), excl. GST\nPer month: ${L(q.total/st.n)} · Per episode: ${L2(q.total/q.eps)}\n`+rv.map(r=>`- ${r[0]}: ${R(r[2])}`).join('\n')+(removed.length?`\nRemoved: ${removed.join(', ')}`:'')+(sales?'\nSponsor sales by Kaivalya: 15% commission on cash collected':'');
+  $('tl').innerHTML=SEGS.map(s=>`<div style="flex:${s.m};background:${s.c}" class="${s.k&&!on(s.k)?'cut':''}">${s.m>=10?s.t+' min':''}</div>`).join('');
+  $('segs').innerHTML=SEGS.map(s=>`<div><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${s.c};margin-right:6px"></i><b>${s.n}</b><br><span class="note">${s.t} min · ${s.k&&!on(s.k)?'removed in your package':s.p}</span></div>`).join('');
+  const o=outlook(),rev=o.map(y=>y.sp+y.yt+y.mem),sum=rev.reduce((a,b)=>a+b,0);
+  const fy=x=>x>=100?'₹'+(x/100).toFixed(2)+' Cr':'₹'+x.toFixed(1)+' L';
+  $('otitle').textContent=`Revenue grows from ${fy(rev[0])} in Year 1 to ${fy(rev[4])} in Year 5`;
+  $('k1').textContent=fy(rev[0]);$('k5').textContent=fy(rev[4]);$('kc').textContent=fy(sum);
+  $('otab').innerHTML=`<thead><tr><th>₹ lakh</th>${o.map((y,i)=>`<th class="n">Year ${i+1}</th>`).join('')}</tr></thead><tbody><tr><td>Programme cost</td>${o.map(y=>`<td class="n">${y.cost.toFixed(1)}</td>`).join('')}</tr><tr><td>Sponsorship revenue${sales?' (before 15% sales commission)':''}</td>${o.map(y=>`<td class="n">${y.sp.toFixed(1)}</td>`).join('')}</tr><tr><td>YouTube revenue</td>${o.map(y=>`<td class="n">${y.yt.toFixed(1)}</td>`).join('')}</tr><tr><td>Memberships, licensing, affiliates</td>${o.map(y=>`<td class="n">${y.mem.toFixed(1)}</td>`).join('')}</tr><tr class="tot"><td>Total revenue</td>${rev.map(v=>`<td class="n">${v.toFixed(1)}</td>`).join('')}</tr></tbody>`;
+  draw();
+}
+const SEGS=[{n:'Documentary opener',t:'0–5',m:5,c:'#0a7f8a',k:'doc',p:'the issue through people, places and facts'},{n:'Public opinions',t:'5–8',m:3,c:'#3a9ea6',k:'doc',p:'real questions from the street'},{n:'Host and expert dialogue',t:'8–33',m:25,c:'#12263a',p:'evidence, trade-offs and solutions'},{n:'Studio audience',t:'33–45',m:12,c:'#2f5a80',k:'aud',p:'practical doubts and lived experience'},{n:'Takeaways and opportunity',t:'45–55',m:10,c:'#5c7a96',p:'citizen and policymaker actions; a business idea'}];
+const svg=$('chart');
+function draw(){
+  const W=svg.clientWidth,H=svg.clientHeight;if(!W)return;
+  const o=outlook(),m={l:W<520?34:44,r:10,t:26,b:30},iw=W-m.l-m.r,ih=H-m.t-m.b;
+  const mx=Math.max(...o.map(y=>Math.max(y.sp+y.yt+y.mem,y.cost)))*1.1,step=mx>300?100:mx>120?50:25;
+  const y=v=>m.t+ih-v/mx*ih,bw=iw/5*.56,cx=i=>m.l+iw/5*(i+.5);
+  let g='';
+  for(let v=0;v<=mx;v+=step)g+=`<line x1="${m.l}" x2="${W-m.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${m.l-6}" y="${y(v)+4}" text-anchor="end" font-size="12" fill="var(--mute)">${v}</text>`;
+  o.forEach((d,i)=>{let b=0;[['sp','var(--navy)'],['yt','var(--teal)'],['mem','#8fd0d4']].forEach(([k,c])=>{if(d[k]<=0)return;g+=`<rect x="${cx(i)-bw/2}" y="${y(b+d[k])}" width="${bw}" height="${y(b)-y(b+d[k])}" fill="${c}"/>`;b+=d[k]});
+    g+=`<text x="${cx(i)}" y="${Math.min(y(b),y(d.cost))-10}" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)">${b.toFixed(1)}</text><text x="${cx(i)}" y="${H-8}" text-anchor="middle" font-size="13" fill="var(--mute)">${W<520?'Y':'Year '}${i+1}</text>`});
+  g+=`<polyline fill="none" stroke="#d98b2b" stroke-width="2.5" points="${o.map((d,i)=>cx(i)+','+y(d.cost)).join(' ')}"/>`+o.map((d,i)=>`<circle cx="${cx(i)}" cy="${y(d.cost)}" r="4" fill="#d98b2b"/>`).join('');
+  g+=`<text x="${m.l}" y="14" font-size="12" fill="var(--mute)">₹ lakh a year</text>`;
+  svg.innerHTML=g;
+}
+const ro=new ResizeObserver(draw);ro.observe(svg);
+const PODS=[
+ {n:'Raj Shamani',sh:'Figuring Out',sub:'~23.1M',full:'500K – 1.5M+',niche:'Business, startups, self-growth',ad:'₹80K – ₹2.5L',adn:'High watch time and business RPM',mr:'₹10L – ₹20L',mrn:'1–2 brand integrations per episode',gf:'₹25L – ₹45L',gfn:'Capped at under 20% of episodes',tot:'₹12L – ₹55L+',lo:12,hi:55,oth:'Courses (House of X equity/brands), speaking gigs (₹10L+), audio deals, Shorts/Reels repurposing'},
+ {n:'Ranveer Allahbadia',sh:'The Ranveer Show Hindi',sub:'~11.3M',sub2:'~7M+ Hindi channel',full:'400K – 1.5M',niche:'Spirituality, business, pop culture',ad:'₹60K – ₹2L',mr:'₹8L – ₹18L',mrn:'Title/mid-roll sponsors via Monk-E',gf:'₹15L – ₹25L',tot:'₹10L – ₹35L+',lo:10,hi:35,oth:'Level SuperMind app funnel, Spotify/audio licensing, multi-channel Shorts monetization'},
+ {n:'Shubhankar Mishra',sh:'Unplugged',sub:'~9.27M',full:'300K – 1M+',niche:'Politics, current affairs, sports, entertainment',ad:'₹45K – ₹1.5L',adn:'Plus ₹1L–₹3L/mo from high-volume Shorts',mr:'₹5L – ₹10L',gf:'₹7L – ₹15L',tot:'₹6L – ₹20L+',lo:6,hi:20,oth:'Facebook and Instagram bonus/brand deals, news/sports brand partnerships, live events'},
+ {n:'Deepak, Shubham & Piyush',sh:'RealHit',sub:'~5.82M',full:'350K – 900K',niche:'Youth culture, comedy, unfiltered interviews',ad:'₹40K – ₹1.2L',mr:'₹4L – ₹8L',gf:'₹5L – ₹12L',tot:'₹5L – ₹15L+',lo:5,hi:15,oth:'Youth brand campaigns, Instagram collab reels, live comedy/campus tours'},
+ {n:'Bharti Singh & Haarsh Limbachiyaa',sh:'Bharti TV',sub:'~4.13M',full:'300K – 800K',niche:'Comedy, TV and Bollywood interviews',ad:'₹35K – ₹1L',mr:'₹6L – ₹12L',gf:'₹8L – ₹15L',tot:'₹7L – ₹18L+',lo:7,hi:18,oth:'TV/OTT cross-promotions, FMCG and family brand ambassadorships, Instagram reels'},
+ {n:'Samdish Bhatia',sh:'Unfiltered by Samdish',sub:'~2.78M',full:'680K – 1.5M per video',niche:'Ground journalism, politics, candid interviews',ad:'₹90K – ₹2.2L',adn:'High-retention long-form',mr:'₹6L – ₹12L',mrn:'Primary revenue model',gf:'₹0',gfn:'Strictly editorial',tot:'₹7L – ₹14L',lo:7,hi:14,oth:'Branded documentaries/field specials, YouTube memberships, journalistic fellowships'},
+ {n:'Prakhar Gupta',sh:'Prakhar Ke Pravachan',sub:'~2.9M',full:'200K – 500K',niche:'Psychology, philosophy, social dynamics',ad:'₹30K – ₹80K',mr:'₹3L – ₹6L',gf:'₹4L – ₹8L',tot:'₹4L – ₹12L+',lo:4,hi:12,oth:'Art of Conversation and communication courses, paid community/workshops'},
+ {n:'Nikhil Kamath',sh:'WTF is / People by WTF',sub:'~2.38M',full:'600K – 2M+',niche:'Business, tech, macroeconomics',ad:'₹1L – ₹3L',adn:'High-value finance/tech audience',mr:'₹10L – ₹20L',mrn:'Select flagship brand partners',gf:'₹0',gfn:'Strictly unpaid guests',tot:'₹11L – ₹22L (direct)',lo:11,hi:22,oth:'WTF Fund (startup equity/deal flow), Zerodha ecosystem brand halo'},
+ {n:'Richa Anirudh',sh:'Zindagi With Richa',sub:'~1.53M',full:'100K – 350K',niche:'Human interest, social change, inspiring stories',ad:'₹15K – ₹45K',mr:'₹1.5L – ₹3.5L',gf:'₹2.5L – ₹5L',tot:'₹2L – ₹7L',lo:2,hi:7,oth:'CSR/NGO campaign partnerships, institutional storytelling, event moderation'},
+ {n:'Vinamre Kasanaa',sh:'Dostcast',sub:'~1.3M',full:'150K – 400K',niche:'Creator economy, startups, unfiltered talks',ad:'₹20K – ₹60K',mr:'₹2L – ₹4L',gf:'₹2L – ₹4.5L',tot:'₹2.5L – ₹7L+',lo:2.5,hi:7,oth:'Agency/content production services, affiliate links, Instagram/X brand deals'}];
+$('pick').innerHTML=PODS.map((p,i)=>`<button id="pk${i}" aria-pressed="false">${p.sh}</button>`).join('');
+const sm=t=>t?`<small>${t}</small>`:'';
+function pod(i){const p=PODS[i];
+ PODS.forEach((x,j)=>$('pk'+j).setAttribute('aria-pressed',j==i));
+ $('pcard').innerHTML=`<div class="rk">#${i+1} of 10 · ${p.niche}</div><h3>${p.n}</h3><div class="sh">${p.sh}</div><div class="big">${p.tot}</div><div class="bl">estimated total revenue per full episode</div><div class="split"><div><span>YouTube AdSense</span><b>${p.ad}${sm(p.adn)}</b></div><div><span>Mid-roll sponsors</span><b>${p.mr}${sm(p.mrn)}</b></div><div><span>Paid guest fee</span><b>${p.gf}${sm(p.gfn)}</b></div><div><span>Other streams</span><b style="font-weight:500">${p.oth}</b></div></div><div class="pstats"><div><b>${p.sub}</b><span>YouTube subscribers${p.sub2?'; '+p.sub2:''}</span></div><div><b>${p.full}</b><span>views per full episode</span></div></div>`;
+ $('ranges').innerHTML=PODS.map((x,j)=>`<div class="rng${j==i?' cur':''}" data-i="${j}"><span>${x.sh}</span><span class="tr"><i style="left:${x.lo/60*100}%;width:${(x.hi-x.lo)/60*100}%"></i></span><span class="amt">${x.tot.replace(/₹/g,'').replace(' (direct)','')}</span></div>`).join('');
+ document.querySelectorAll('.rng[data-i]').forEach(r=>r.addEventListener('click',()=>pod(+r.dataset.i)));
+}
+PODS.forEach((p,i)=>$('pk'+i).addEventListener('click',()=>pod(i)));
+function vcalc(){const v=+$('views').value;$('vl').textContent=(v>=1e5?(v/1e5).toFixed(1)+' lakh':Math.round(v/1e3)+'K');$('cv').textContent=`₹${(v*1.5/1e5).toFixed(1)} L – ₹${(v*4/1e5).toFixed(1)} L`;$('cn').textContent='At ₹1.50–₹4.00 per expected view.'}
+$('views').addEventListener('input',vcalc);
+document.querySelectorAll('input[name=cad]').forEach(r=>r.addEventListener('change',()=>{st.c=+r.value;render()}));
+document.querySelectorAll('input[name=dur]').forEach(r=>r.addEventListener('change',()=>{st.n=+r.value;render()}));
+ROLES.forEach(r=>$('r-'+r.id).addEventListener('input',e=>{st.lv[r.id]=+e.target.value;render()}));
+[...ROLES,...EPS].forEach(x=>{const sw=$('sw-'+x.id);if(sw)sw.addEventListener('change',()=>{st.off=st.off.filter(y=>y!=x.id);if(!sw.checked)st.off.push(x.id);render()})});
+ADDS.forEach(a=>$('sw-'+a.id).addEventListener('change',e=>{st.adds=st.adds.filter(y=>y!=a.id);if(e.target.checked)st.adds.push(a.id);render()}));
+$('dist').addEventListener('change',e=>{st.dist=+e.target.value;render()});
+$('launch').addEventListener('change',e=>{st.launch=+e.target.value;render()});
+Object.keys(PRESETS).forEach(k=>$('p-'+k).addEventListener('click',()=>{st=clone(PRESETS[k]);render()}));
+$('reset').addEventListener('click',()=>{st=clone(PRESETS.full);render()});
+$('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(window._sum);$('copied').textContent='Copied. Paste it into WhatsApp or email to share your choice.'}catch(e){$('copied').textContent='Copy was blocked by the browser. Select the table above to copy it.'}});
+go(0);pod(0);vcalc();render();
+}
+</script>
+</body>
+</html>
